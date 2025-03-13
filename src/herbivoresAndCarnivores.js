@@ -11,27 +11,24 @@ class Animal {
 
   checkHealth() {
     if (this.health <= 0) {
-      Animal.alive.splice(Animal.alive.indexOf(this), 1);
+      Animal.alive = Animal.alive.filter((animal) => animal !== this);
     }
   }
 }
-    
-    class Herbivore extends Animal {
-      constructor(name) {
-        super();
-        this.hidden = false;
-      }
+
+class Herbivore extends Animal {
+  constructor(name) {
+    super(name);
+    this.hidden = false;
+  }
   hide() {
     this.hidden = true;
   }
 }
 
 class Carnivore extends Animal {
-  constructor(name) {
-  super();
-  }
   bite(obj) {
-    if ((obj instanceof Herbivore) && obj.hidden === false) {
+    if (obj instanceof Herbivore && obj.hidden === false) {
       obj.health -= 50;
       obj.checkHealth();
     }
